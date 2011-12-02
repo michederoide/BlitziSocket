@@ -1,0 +1,5 @@
+E:\Entwicklung\Frameworks\BlitziSocket\BlitziSocket\bin\Release\BlitziSocket.dll
+E:\Entwicklung\Frameworks\BlitziSocket\BlitziSocket\bin\Release\BlitziSocket.pdb
+E:\Entwicklung\Frameworks\BlitziSocket\BlitziSocket\obj\Release\ResolveAssemblyReference.cache
+E:\Entwicklung\Frameworks\BlitziSocket\BlitziSocket\obj\Release\BlitziSocket.dll
+E:\Entwicklung\Frameworks\BlitziSocket\BlitziSocket\obj\Release\BlitziSocket.pdb

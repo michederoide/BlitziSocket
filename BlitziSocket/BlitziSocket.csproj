@@ -40,7 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework.cs" />
+    <Compile Include="Exception\ExceptionInfo.cs" />
+    <Compile Include="Exception\Info\ByteInformation.cs" />
+    <Compile Include="Exception\Info\CharInformation.cs" />
+    <Compile Include="Exception\Info\DoubleInformation.cs" />
+    <Compile Include="Exception\Info\FloatInformation.cs" />
+    <Compile Include="Exception\Info\InformationObject.cs" />
+    <Compile Include="Exception\Info\InformationType.cs" />
+    <Compile Include="Exception\Info\IntegerInformation.cs" />
+    <Compile Include="Exception\Info\LongInformation.cs" />
+    <Compile Include="Exception\Info\ObjectInformation.cs" />
+    <Compile Include="Exception\Info\ShortInformation.cs" />
+    <Compile Include="Exception\Info\StringInformation.cs" />
     <Compile Include="Exception\LowException.cs" />
+    <Compile Include="Exception\Info\NullObject.cs" />
+    <Compile Include="Net\TextTcpClient.cs" />
     <Compile Include="RawNet\LowTcpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -30,7 +30,14 @@ namespace BlitziSocket.RawNet
         {
             get
             {
-                return SystemSocket.Connected;
+                try
+                {
+                    return SystemSocket.Connected;
+                }
+                catch (System.Exception)
+                {
+                    return false;
+                }
             }
         }
 
@@ -42,11 +49,49 @@ namespace BlitziSocket.RawNet
             SystemSocket = new TcpClient();
         }
 
+        /// <summary>
+        /// Connect to the host and its given port
+        /// </summary>
+        /// <param name="host">Which host should we connect to?</param>
+        /// <param name="port">Which port should we use?</param>
+        /// <returns>Did we successfully connect?</returns>
         protected bool InternalConnect(string host, int port)
         {
             return InternalConnect(new IPEndPoint(Dns.GetHostAddresses(host).First<IPAddress>(), port));
         }
 
+        /// <summary>
+        /// Connect to the host and its given port
+        /// </summary>
+        /// <param name="host">Which host should we connect to?</param>
+        /// <param name="port">Which port should we use?</param>
+        /// <returns>Did we successfully connect?</returns>
+        public abstract bool ConnectToServer(string host, int port);
+
+        /// <summary>
+        /// Connects to the server
+        /// </summary>
+        /// <param name="EndPoint">The EndPoint of the server</param>
+        /// <returns>Did we successfully connect?</returns>
+        public abstract bool ConnectToServer(IPEndPoint EndPoint);
+
+        /// <summary>
+        /// Sends data to the server
+        /// </summary>
+        /// <param name="rawbytes">The bytes to send to the server</param>
+        protected abstract void Send(byte[] rawbytes);
+
+        /// <summary>
+        /// Reads in bytes the stream got from the server
+        /// </summary>
+        /// <returns>The available bytes that could be read from the stream</returns>
+        protected abstract byte[] Read();
+
+        /// <summary>
+        /// Connects to the server
+        /// </summary>
+        /// <param name="EndPoint">The EndPoint of the server</param>
+        /// <returns>Did we successfully connect?</returns>
         protected bool InternalConnect(IPEndPoint EndPoint)
         {
             SystemEndPoint = EndPoint;
@@ -58,6 +103,10 @@ namespace BlitziSocket.RawNet
             {
                 BlitziSocket.Exception.LowException Ex = new BlitziSocket.Exception.LowException("Could not connect to server", e);
                 Ex.ErrorType = "ERROR";
+                Ex.AdditionalInformation =
+                    new BlitziSocket.Exception.ExceptionInfo[] {
+                        new BlitziSocket.Exception.ExceptionInfo(new BlitziSocket.Exception.Info.ObjectInformation(SystemEndPoint))
+                    };
                 throw Ex;
             }
             return this.Connected;

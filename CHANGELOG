@@ -1,0 +1,18 @@
+CHANGELOG for BliziSocket Framework
+------------------------------------------------------------
+
+v0.0.2.2
+------------------------------
+- Added a class for some information on the framework (e.g. version,
+  framework name, etc.)
+
+v0.0.2.1
+------------------------------
+- Added a functional (not tested yet) TextTcpClient for usage as a UTF-8
+  message client (uses UTF-8 encoded strings)
+- Added special exception classes for better exception handling
+- Improved the functionality of the LowTcpClient
+
+v0.0.1.1
+------------------------------
+- Added a LowTcpClient as an abstract layer for other TcpClient classes

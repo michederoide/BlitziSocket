@@ -25,7 +25,7 @@ namespace BlitziSocket.RawNet
         /// <summary>
         /// This object represents all currently connected clients
         /// </summary>
-        protected List<ServerTcpClient> SystemClients { get; private set; }
+        internal List<ServerTcpClient> SystemClients { get; private set; }
 
         /// <summary>
         /// Provides the next connection ID for a new client
@@ -64,14 +64,33 @@ namespace BlitziSocket.RawNet
             SystemListener = new TcpListener(SystemEndPoint);
         }
 
-        protected void ListenForSocket()
+        /// <summary>
+        /// Listens for a socket and saves it in the list
+        /// </summary>
+        /// <returns>The newly connected TcpClient</returns>
+        protected TcpClient ListenForSocket()
         {
             while(!SystemListener.Pending())
             {
                 // Wait until a client wants to connect
             }
-            SystemClients.Add(new ServerTcpClient(SystemListener.AcceptTcpClient(), NextID));
-            NextID++;
+            int index = SystemClients.Count;
+            try
+            {
+                SystemClients.Add(new ServerTcpClient(SystemListener.AcceptTcpClient(), NextID));
+                NextID++;
+                return SystemClients[index].Client;
+            }
+            catch (System.Exception e)
+            {
+                BlitziSocket.Exception.LowException Ex = new BlitziSocket.Exception.LowException("Could not retrieve the connection of a new client", e);
+                Ex.ErrorType = "WARN";
+                Ex.AdditionalInformation = new BlitziSocket.Exception.ExceptionInfo[] {
+                    new BlitziSocket.Exception.ExceptionInfo(new BlitziSocket.Exception.Info.ObjectInformation(SystemListener)),
+                    new BlitziSocket.Exception.ExceptionInfo(new BlitziSocket.Exception.Info.LongInformation(NextID - 1))
+                };
+                throw Ex;
+            }
         }
     }
 }

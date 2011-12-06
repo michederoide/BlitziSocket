@@ -58,6 +58,8 @@
     <Compile Include="Net\TextTcpClient.cs" />
     <Compile Include="RawNet\LowTcpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RawNet\LowTcpServer.cs" />
+    <Compile Include="RawNet\ServerTcpClient.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

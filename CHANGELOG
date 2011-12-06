@@ -1,6 +1,12 @@
 CHANGELOG for BliziSocket Framework
 ------------------------------------------------------------
 
+v0.0.2.3
+------------------------------
+- Added the important part of LowTcpServer
+- We're now heavily working on the rest of LowTcpServer and a functionable
+  implementation for this abstract class
+
 v0.0.2.2
 ------------------------------
 - Added a class for some information on the framework (e.g. version,

@@ -1,0 +1,608 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlitziSocket</name>
+    </assembly>
+    <members>
+        <member name="T:BlitziSocket.RawNet.LowTcpServer">
+            <summary>
+            Represents the abstract layer of a TcpServer
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.RawNet.LowTcpServer.Tick">
+            <summary>
+            How many milliseconds should the server wait after all clients have been handled before handling them again
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.#ctor(System.Net.IPAddress,System.Int32)">
+            <summary>
+            Creates a new LowTcpServer
+            </summary>
+            <param name="address">The local IP address the server should bind to</param>
+            <param name="port">The port on which the server will run</param>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.HandleClient(BlitziSocket.RawNet.ServerTcpClient)">
+            <summary>
+            Handles the client (for example reading messages from it
+            </summary>
+            <param name="Client">The client which should be handled</param>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.RepeatRunner">
+            <summary>
+            Repeats the handling of clients every [Tick] milliseconds
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.InternalStartRunning">
+            <summary>
+            Starts the server without starting to listen the server
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.InternalStopRunning">
+            <summary>
+            Stops the execution of the server and disconnects all clients
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.RepeatListening">
+            <summary>
+            Internal method to repeat listening to connections
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.InternalStartListening">
+            <summary>
+            (Starts the server and) starts listening for new connections
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.InternalStopListening">
+            <summary>
+            Stops the server from listening for new connections
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.#ctor(System.Int32)">
+            <summary>
+            Creates a new LowTcpServer
+            <para>NOTE: The server will bind only on the loopback address 127.0.0.1</para>
+            </summary>
+            <param name="port">The port on which the server will run</param>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.#ctor(System.Net.IPEndPoint)">
+            <summary>
+            Creates a new LowTcpServer
+            </summary>
+            <param name="EndPoint">The EndPoint on which the server will run</param>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.ListenForSocket">
+            <summary>
+            Listens for a socket and saves it in the list
+            </summary>
+            <returns>The newly connected TcpClient</returns>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.CloseClient(System.UInt32)">
+            <summary>
+            Closes the connection for the given client immediately
+            </summary>
+            <param name="ConnectionID">The unique connection ID of the client</param>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpServer.CloseClient(BlitziSocket.RawNet.ServerTcpClient)">
+            <summary>
+            Closes the connection for the given client immediately
+            </summary>
+            <param name="ClientToClose">The ServerTcpClient to close</param>
+        </member>
+        <member name="P:BlitziSocket.RawNet.LowTcpServer.SystemListener">
+            <summary>
+            This object represents the underlying system-provided listener
+            <para>In this case, it is a TcpListener object</para>
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.RawNet.LowTcpServer.Listening">
+            <summary>
+            Are we still listening for new connections?
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.RawNet.LowTcpServer.ThreadedListener">
+            <summary>
+            Our thread which listens to new connections
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.RawNet.LowTcpServer.ThreadedRunner">
+            <summary>
+            Our thread which will run the server
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.RawNet.LowTcpServer.Running">
+            <summary>
+            Is the server still running?
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.RawNet.LowTcpServer.SystemEndPoint">
+            <summary>
+            This object represents the underlying system-provided IPEndPoint on which this server will run
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.RawNet.LowTcpServer.SystemClients">
+            <summary>
+            This object represents all currently connected clients
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.RawNet.LowTcpServer.NextID">
+            <summary>
+            Provides the next connection ID for a new client
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.Info.ObjectInformation">
+            <summary>
+            Represents an exception information with the "type" object
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.Info.InformationObject">
+            <summary>
+            Represents an informational object for an exception
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Exception.Info.InformationObject.#ctor(System.Object)">
+            <summary>
+            Creates a new InformationObject
+            </summary>
+            <param name="Obj">The additional object to describe the exception</param>
+        </member>
+        <member name="P:BlitziSocket.Exception.Info.InformationObject.InfoType">
+            <summary>
+            Represents the type of the information
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.Exception.Info.InformationObject.Object">
+            <summary>
+            The additional object for the exception information
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Exception.Info.ObjectInformation.#ctor(System.Object)">
+            <summary>
+            Creates a new ObjectInformation
+            </summary>
+            <param name="Obj">The additional object to describe the exception</param>
+        </member>
+        <member name="P:BlitziSocket.Exception.Info.ObjectInformation.InfoType">
+            <summary>
+            Represents the type of the information (here an object)
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.Info.LongInformation">
+            <summary>
+            Represents an exception information with the type long
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Exception.Info.LongInformation.#ctor(System.Int64)">
+            <summary>
+            Creates a new LongInformation
+            </summary>
+            <param name="Obj">The additional object to describe the exception</param>
+        </member>
+        <member name="P:BlitziSocket.Exception.Info.LongInformation.InfoType">
+            <summary>
+            Represents the type of the information (here a long)
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.Info.FloatInformation">
+            <summary>
+            Represents an exception information with the type float
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Exception.Info.FloatInformation.#ctor(System.Single)">
+            <summary>
+            Creates a new FloatInformation
+            </summary>
+            <param name="Obj">The additional object to describe the exception</param>
+        </member>
+        <member name="P:BlitziSocket.Exception.Info.FloatInformation.InfoType">
+            <summary>
+            Represents the type of the information (here a float)
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.Info.CharInformation">
+            <summary>
+            Represents an exception information with the type char
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Exception.Info.CharInformation.#ctor(System.Char)">
+            <summary>
+            Creates a new CharInformation
+            </summary>
+            <param name="Obj">The additional object to describe the exception</param>
+        </member>
+        <member name="P:BlitziSocket.Exception.Info.CharInformation.InfoType">
+            <summary>
+            Represents the type of the information (here a char)
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.Info.StringInformation">
+            <summary>
+            Represents an exception information with the type string
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Exception.Info.StringInformation.#ctor(System.String)">
+            <summary>
+            Creates a new StringInformation
+            </summary>
+            <param name="Obj">The additional object to describe the exception</param>
+        </member>
+        <member name="P:BlitziSocket.Exception.Info.StringInformation.InfoType">
+            <summary>
+            Represents the type of the information (here a string)
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.Info.InformationType">
+            <summary>
+            Represents the type of the additional information used for an exception
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Exception.Info.InformationType.Char">
+            <summary>
+            Defines a char as additional information
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Exception.Info.InformationType.String">
+            <summary>
+            Defines a string as additional information
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Exception.Info.InformationType.Byte">
+            <summary>
+            Defines a byte as additional information
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Exception.Info.InformationType.Short">
+            <summary>
+            Defines a short as additional information
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Exception.Info.InformationType.Integer">
+            <summary>
+            Defines an integer as additional information
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Exception.Info.InformationType.Long">
+            <summary>
+            Defines a long as additional information
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Exception.Info.InformationType.Float">
+            <summary>
+            Defines a float as additional information
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Exception.Info.InformationType.Double">
+            <summary>
+            Defines a double as additional information
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Exception.Info.InformationType.Object">
+            <summary>
+            Defines an object as additional information
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.Info.ByteInformation">
+            <summary>
+            Represents an exception information with the type byte
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Exception.Info.ByteInformation.#ctor(System.Byte)">
+            <summary>
+            Creates a new ByteInformation
+            </summary>
+            <param name="Obj">The additional object to describe the exception</param>
+        </member>
+        <member name="P:BlitziSocket.Exception.Info.ByteInformation.InfoType">
+            <summary>
+            Represents the type of the information (here a byte)
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Net.TextTcpClient">
+            <summary>
+            Uses text input and output with a TCP server
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.RawNet.LowTcpClient">
+            <summary>
+            Represents the abstract layer of a TcpClient
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpClient.#ctor">
+            <summary>
+            Create a new LowTcpClient
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpClient.InternalConnect(System.String,System.Int32)">
+            <summary>
+            Connect to the host and its given port
+            </summary>
+            <param name="host">Which host should we connect to?</param>
+            <param name="port">Which port should we use?</param>
+            <returns>Did we successfully connect?</returns>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpClient.ConnectToServer(System.String,System.Int32)">
+            <summary>
+            Connect to the host and its given port
+            </summary>
+            <param name="host">Which host should we connect to?</param>
+            <param name="port">Which port should we use?</param>
+            <returns>Did we successfully connect?</returns>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpClient.ConnectToServer(System.Net.IPEndPoint)">
+            <summary>
+            Connects to the server
+            </summary>
+            <param name="EndPoint">The EndPoint of the server</param>
+            <returns>Did we successfully connect?</returns>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpClient.Send(System.Byte[])">
+            <summary>
+            Sends data to the server
+            </summary>
+            <param name="rawbytes">The bytes to send to the server</param>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpClient.Read">
+            <summary>
+            Reads in bytes the stream got from the server
+            <para>NOTE: The client should check for system messages before parsing the message</para>
+            </summary>
+            <returns>The available bytes that could be read from the stream</returns>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpClient.InternalConnect(System.Net.IPEndPoint)">
+            <summary>
+            Connects to the server
+            </summary>
+            <param name="EndPoint">The EndPoint of the server</param>
+            <returns>Did we successfully connect?</returns>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpClient.Disconnect">
+            <summary>
+            Disconnects from the server
+            </summary>
+            <returns>Did we successfully disconnect?</returns>
+        </member>
+        <member name="M:BlitziSocket.RawNet.LowTcpClient.InternalDisconnect">
+            <summary>
+            Disconnects this client from the server if connected
+            </summary>
+            <returns>Did we disconnect successfully?</returns>
+        </member>
+        <member name="P:BlitziSocket.RawNet.LowTcpClient.SystemSocket">
+            <summary>
+            This object represents the underlying system-provided socket
+            <para>In this case, it is a TcpClient object</para>
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.RawNet.LowTcpClient.SystemEndPoint">
+            <summary>
+            This object represents the underlying system-provided IPEndPoint
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.RawNet.LowTcpClient.Connected">
+            <summary>
+            Are we connected to our server?
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Net.TextTcpClient.ConnectToServer(System.String,System.Int32)">
+            <summary>
+            Connect to the host and its given port
+            </summary>
+            <param name="host">Which host should we connect to?</param>
+            <param name="port">Which port should we use?</param>
+            <returns>Did we successfully connect?</returns>
+        </member>
+        <member name="M:BlitziSocket.Net.TextTcpClient.ConnectToServer(System.Net.IPEndPoint)">
+            <summary>
+            Connects to the server
+            </summary>
+            <param name="EndPoint">The EndPoint of the server</param>
+            <returns>Did we successfully connect?</returns>
+        </member>
+        <member name="M:BlitziSocket.Net.TextTcpClient.Disconnect">
+            <summary>
+            Disconnects from the server if connected
+            </summary>
+            <returns>Did we successfully disconnect?</returns>
+        </member>
+        <member name="M:BlitziSocket.Net.TextTcpClient.Read">
+            <summary>
+            Reads in bytes the stream got from the server
+            <para>NOTE: An empty byte array is returned if we disconnect from the server</para>
+            </summary>
+            <returns>The available bytes that could be read from the stream</returns>
+        </member>
+        <member name="M:BlitziSocket.Net.TextTcpClient.GetResponseText">
+            <summary>
+            Reads the response from the server
+            </summary>
+            <returns>Returns the response from the server as string or an empty string if there is no response</returns>
+        </member>
+        <member name="M:BlitziSocket.Net.TextTcpClient.Send(System.Byte[])">
+            <summary>
+            Sends data to the server
+            </summary>
+            <param name="rawbytes">The bytes to send to the server</param>
+        </member>
+        <member name="M:BlitziSocket.Net.TextTcpClient.SendText(System.String)">
+            <summary>
+            Sends a message to the server
+            </summary>
+            <param name="message">The message for the server as plain text</param>
+        </member>
+        <member name="M:BlitziSocket.Net.TextTcpClient.SendText(System.String,System.String[])">
+            <summary>
+            Sends a message to the server with delimiters after each part of the message
+            </summary>
+            <param name="delimiter">The delimiter which will connect the message parts</param>
+            <param name="messages">The message parts as plain text(s)</param>
+        </member>
+        <member name="T:BlitziSocket.Exception.LowException">
+            <summary>
+            Represents an exception thrown in the low level (from LowTcpClient, LowTcpServer, ...)
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Exception.LowException.#ctor(System.String,System.Exception)">
+            <summary>
+            Creates a new LowException for an exception thrown in Low-Classes (eg. LowTcpClient)
+            </summary>
+            <param name="message">The error message to use</param>
+            <param name="inner">The usually thrown exception (usually a catched exception)</param>
+        </member>
+        <member name="P:BlitziSocket.Exception.LowException.ErrorType">
+            <summary>
+            The error type of the exception ("ERROR", "WARN", "INFO", "TRACE", "DEBUG")
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.Exception.LowException.AdditionalInformation">
+            <summary>
+            Contains all additional exception info (eg. objects)
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.Info.IntegerInformation">
+            <summary>
+            Represents an exception information with the type integer
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Exception.Info.IntegerInformation.#ctor(System.Int32)">
+            <summary>
+            Creates a new IntegerInformation
+            </summary>
+            <param name="Obj">The additional object to describe the exception</param>
+        </member>
+        <member name="P:BlitziSocket.Exception.Info.IntegerInformation.InfoType">
+            <summary>
+            Represents the type of the information (here an integer)
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.ExceptionInfo">
+            <summary>
+            Represents an additonal exception info
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.Exception.ExceptionInfo.AdditionalObject">
+            <summary>
+            The additional object to use with the exception info
+            <para>Don't use null for an empty object, use BlitziSocket.Exception.NullObject instead</para>
+            <para>To use a suitable object and type, check the type of the InformationObject</para>
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.Exception.ExceptionInfo.InfoType">
+            <summary>
+            The information type of the additional information
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.RawNet.ServerTcpClient">
+            <summary>
+            This class helps us to identify clients with a specific ID
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.RawNet.ServerTcpClient.#ctor(System.Net.Sockets.TcpClient,System.UInt32)">
+            <summary>
+            Creates a new ServerTcpClient
+            </summary>
+            <param name="InnerClient">The underlaying TcpClient</param>
+            <param name="ID">The connection ID of the client</param>
+        </member>
+        <member name="P:BlitziSocket.RawNet.ServerTcpClient.Client">
+            <summary>
+            Contains the underlaying system TcpClient
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.RawNet.ServerTcpClient.ConnectionID">
+            <summary>
+            Represents the connection ID of the client
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Framework">
+            <summary>
+            Holds information about the framework
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Framework.#ctor">
+            <summary>
+            Prevents creation of a framework object which would be useless
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.Framework.Version">
+            <summary>
+            The current version of the framework
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.Framework.Authors">
+            <summary>
+            Contains all authors that worked on the framework
+            </summary>
+        </member>
+        <member name="P:BlitziSocket.Framework.Name">
+            <summary>
+            The name of the framework
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.Info.ShortInformation">
+            <summary>
+            Represents an exception information with the type short
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Exception.Info.ShortInformation.#ctor(System.Int16)">
+            <summary>
+            Creates a new ShortInformation
+            </summary>
+            <param name="Obj">The additional object to describe the exception</param>
+        </member>
+        <member name="P:BlitziSocket.Exception.Info.ShortInformation.InfoType">
+            <summary>
+            Represents the type of the information (here a short)
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.Info.NullObject">
+            <summary>
+            Dummy class for the value "null"
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Exception.Info.NullObject.#ctor">
+            <summary>
+            Create a dummy null object
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Exception.Info.DoubleInformation">
+            <summary>
+            Represents an exception information with the type double
+            </summary>
+        </member>
+        <member name="M:BlitziSocket.Exception.Info.DoubleInformation.#ctor(System.Double)">
+            <summary>
+            Creates a new DoubleInformation
+            </summary>
+            <param name="Obj">The additional object to describe the exception</param>
+        </member>
+        <member name="P:BlitziSocket.Exception.Info.DoubleInformation.InfoType">
+            <summary>
+            Represents the type of the information (here a double)
+            </summary>
+        </member>
+        <member name="T:BlitziSocket.Protocol.SystemMessages">
+            <summary>
+            Represents important system messages sent by client or server
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Protocol.SystemMessages.ServerClose">
+            <summary>
+            The server will close the connection immediately
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Protocol.SystemMessages.ClientClose">
+            <summary>
+            The client will close the connection immediately
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Protocol.SystemMessages.ClientError">
+            <summary>
+            The client caught an exception with this connection
+            </summary>
+        </member>
+        <member name="F:BlitziSocket.Protocol.SystemMessages.ServerError">
+            <summary>
+            The server caught an exception with this connection
+            </summary>
+        </member>
+    </members>
+</doc>

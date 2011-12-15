@@ -24,7 +24,7 @@ namespace BlitziSocket
         {
             get
             {
-                return "v0.0.2.3";
+                return "v0.0.3.1";
             }
         }
 

@@ -12,17 +12,17 @@ namespace BlitziSocket.RawNet
     /// <summary>
     /// This class helps us to identify clients with a specific ID
     /// </summary>
-    internal sealed class ServerTcpClient
+    public sealed class ServerTcpClient
     {
         /// <summary>
         /// Contains the underlaying system TcpClient
         /// </summary>
-        internal TcpClient Client { get; private set; }
+        public TcpClient Client { get; private set; }
 
         /// <summary>
         /// Represents the connection ID of the client
         /// </summary>
-        internal uint ConnectionID { get; private set; }
+        public uint ConnectionID { get; private set; }
 
         /// <summary>
         /// Creates a new ServerTcpClient

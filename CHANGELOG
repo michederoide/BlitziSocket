@@ -1,6 +1,16 @@
 CHANGELOG for BliziSocket Framework
 ------------------------------------------------------------
 
+v0.0.3.1
+------------------------------
+- Improved LowTcpServer and TcpClients (many changes)
+- Implemented internal SystemMessages (for errors and disconnection)
+- Improved documentation of methods
+- TODO: Comment on the method implementations
+- KNOWN BUGS: If someone knows the values of the system messages (currently
+  stored as uints) he could send those messages and use them to execute
+  commands which should be prohibited for normal users (DANGEROUS IN CHATS)
+
 v0.0.2.3
 ------------------------------
 - Added the important part of LowTcpServer

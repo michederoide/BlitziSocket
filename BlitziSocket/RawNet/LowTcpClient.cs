@@ -10,6 +10,9 @@ using System.Net.Sockets;
 // The RawNet Sub-namespace contains all low socket classes (like LowTcpClient, LowTcpServer, ...)
 namespace BlitziSocket.RawNet
 {
+    /// <summary>
+    /// Represents the abstract layer of a TcpClient
+    /// </summary>
     public abstract class LowTcpClient
     {
         /// <summary>
@@ -83,6 +86,7 @@ namespace BlitziSocket.RawNet
 
         /// <summary>
         /// Reads in bytes the stream got from the server
+        /// <para>NOTE: The client should check for system messages before parsing the message</para>
         /// </summary>
         /// <returns>The available bytes that could be read from the stream</returns>
         protected abstract byte[] Read();
@@ -110,6 +114,40 @@ namespace BlitziSocket.RawNet
                 throw Ex;
             }
             return this.Connected;
-        }   
+        }
+
+        /// <summary>
+        /// Disconnects from the server
+        /// </summary>
+        /// <returns>Did we successfully disconnect?</returns>
+        public abstract bool Disconnect();
+
+        /// <summary>
+        /// Disconnects this client from the server if connected
+        /// </summary>
+        /// <returns>Did we disconnect successfully?</returns>
+        protected bool InternalDisconnect()
+        {
+            if (!Connected)
+                return false;
+            try
+            {
+                byte[] SystemMessage = Encoding.UTF8.GetBytes(((uint)BlitziSocket.Protocol.SystemMessages.ClientClose).ToString());
+                SystemSocket.GetStream().Write(SystemMessage, 0, SystemMessage.Length);
+                SystemSocket.Close();
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                BlitziSocket.Exception.LowException Ex = new BlitziSocket.Exception.LowException("Could not disconnect from server", e);
+                Ex.ErrorType = "WARN";
+                Ex.AdditionalInformation =
+                    new BlitziSocket.Exception.ExceptionInfo[] {
+                        new BlitziSocket.Exception.ExceptionInfo(new BlitziSocket.Exception.Info.ObjectInformation(SystemEndPoint)),
+                        new BlitziSocket.Exception.ExceptionInfo(new BlitziSocket.Exception.Info.ObjectInformation(SystemSocket))
+                    };
+                throw Ex;
+            }
+        }
     }
 }

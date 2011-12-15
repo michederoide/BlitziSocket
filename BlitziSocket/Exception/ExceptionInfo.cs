@@ -7,6 +7,9 @@ using BlitziSocket.Exception.Info;
 
 namespace BlitziSocket.Exception
 {
+    /// <summary>
+    /// Represents an additonal exception info
+    /// </summary>
     public sealed class ExceptionInfo
     {
         /// <summary>

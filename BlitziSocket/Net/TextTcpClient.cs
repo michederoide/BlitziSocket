@@ -35,7 +35,17 @@ namespace BlitziSocket.Net
         }
 
         /// <summary>
+        /// Disconnects from the server if connected
+        /// </summary>
+        /// <returns>Did we successfully disconnect?</returns>
+        public override bool Disconnect()
+        {
+            return base.InternalDisconnect();
+        }
+
+        /// <summary>
         /// Reads in bytes the stream got from the server
+        /// <para>NOTE: An empty byte array is returned if we disconnect from the server</para>
         /// </summary>
         /// <returns>The available bytes that could be read from the stream</returns>
         protected override byte[] Read()
@@ -43,6 +53,12 @@ namespace BlitziSocket.Net
             int DataAvailable = SystemSocket.Available;
             byte[] bytes = new byte[DataAvailable];
             SystemSocket.GetStream().Read(bytes, 0, DataAvailable);
+            string message = new string(Encoding.UTF8.GetChars(bytes));
+            if (message.Equals(((uint)BlitziSocket.Protocol.SystemMessages.ServerClose).ToString()))
+            {
+                SystemSocket.Close();
+                return new byte[] { };
+            }
             return bytes;
         }
 

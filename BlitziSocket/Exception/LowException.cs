@@ -5,6 +5,9 @@ using System.Text;
 
 namespace BlitziSocket.Exception
 {
+    /// <summary>
+    /// Represents an exception thrown in the low level (from LowTcpClient, LowTcpServer, ...)
+    /// </summary>
     [Serializable]
     public sealed class LowException : System.Exception
     {
